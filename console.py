@@ -126,6 +126,8 @@ class HBNBCommand(cmd.Cmd):
         s3 = s2[1:len(s2)]
         if (len(s2) > 1):
             new_instance = HBNBCommand.classes[s2[0]]()
+            print("s3 =", s3)
+            storage.new(new_instance)
             storage.save()
             print(new_instance.id)
             for i in s3:
@@ -148,6 +150,7 @@ class HBNBCommand(cmd.Cmd):
                 self.do_update(update_args)
             return
         new_instance = HBNBCommand.classes[s2[0]]()
+        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
         storage.save()
