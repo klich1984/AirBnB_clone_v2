@@ -32,5 +32,30 @@ class DBStorage():
         """
         if cls is None:
 
+    def new(self, obj):
+        """[summary]
+
+        Args:
+            obj ([type]): [description]
+        """
+        self.__session.add(obj)
+    
+    def save(self):
+        """[summary]
+        """
+        self.__session.commit()
+    
+    def delete(self, obj=None):
+        """[summary]
+
+        Args:
+            obj ([type], optional): [description]. Defaults to None.
+        """
+        if obj is not None:
+            self.__session.delete(obj)
+
+
+
+
 
 
