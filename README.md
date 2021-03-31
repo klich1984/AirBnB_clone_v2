@@ -143,4 +143,5 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 
 ## Authors
 
-Esteban Castaño- [Github](https://github.com/ecastan960) /
+Esteban Castaño- [Github](https://github.com/ecastan960) / [Twitter](https://twitter.com/EstebanCastaoZ1)
+Carlos Alberto Usuga Martinez - [Github](https://github.com/klich1984) / [Twitter](https://twitter.com/usuga_martinez)
