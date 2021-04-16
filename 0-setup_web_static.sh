@@ -1,12 +1,45 @@
 #!/usr/bin/env bash
-# Bash script that sets up your web servers for the deployment of web_static
-sudo apt-get update
-sudo apt-get install -y nginx
-mkdir -p /data/web_static/releases/test/
-mkdir -p /data/web_static/shared/
-echo "Test Web Page" >> /data/web_static/releases/test/index.html
-ln -sf /data/web_static/releases/test/ /data/web_static/current
+# script prepare your web servers
+
+if ! [ -x "$(command -v nginx)" ]; then
+    apt update;
+    apt install nginx -y;
+fi
+
+if [ ! -d /data/ ]; then
+	mkdir /data/;
+fi
+
+if [ ! -d /data/web_static/ ]; then
+	mkdir /data/web_static/;
+fi
+
+if [ ! -d /data/web_static/releases/ ]; then
+	mkdir /data/web_static/releases/;
+fi
+
+if [ ! -d /data/web_static/shared/ ]; then
+	mkdir /data/web_static/shared/;
+fi
+
+if [ ! -d /data/web_static/releases/test/ ]; then
+	mkdir /data/web_static/releases/test/;
+fi
+
+if [ ! -d /data/web_static/releases/test/index.html ]; then
+	touch /data/web_static/releases/test/index.html;
+	echo Holberton Scholli | tee /data/web_static/releases/test/index.html
+fi
+
+if [ ! -d /data/web_static/current ]; then
+	ln -s /data/web_static/releases/test /data/web_static/current;
+else
+	rm /data/web_static/current;
+	ln -s /data/web_static/releases/test /data/web_static/current;
+fi
+
 sudo chown -R ubuntu:ubuntu /data/
-sudo sed -i "39i\ \tlocation /hbnb_static { alias /data/web_static/current/; }" /etc/nginx/sites-available/default
-sudo service nginx reload
-sudo service nginx restart
+
+sed -i '/listen 80 default_server;/a \\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
+
+service nginx restart
