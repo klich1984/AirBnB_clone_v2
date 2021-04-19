@@ -17,7 +17,8 @@ def do_pack():
         filename = "web_static_" + dt_string + ".tgz"
         local('tar -cvzf versions/{} web_static/'.format(filename))
         path = 'versions/{}'.format(filename)
-        print("web_static packed: {} ->{}Bytes".format(path, os.path.getsize(path)))
+        print("web_static packed: {} ->{}Bytes"
+              .format(path, os.path.getsize(path)))
         return path
     except:
         return None
@@ -45,13 +46,12 @@ def do_deploy(archive_path):
 /data/web_static/current".format(path2))
         return True
     else:
-        print("Fallooo :c")
         return False
+
 
 def deploy():
     """ Function task 3 """
     variable = do_pack()
-    print(variable)
     if path.exists(variable):
         return do_deploy(variable)
     else:
