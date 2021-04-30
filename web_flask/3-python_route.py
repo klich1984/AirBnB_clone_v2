@@ -28,6 +28,11 @@ def argument(text):
 @app.route("/python/")
 @app.route("/python/<text>")
 def arg_default(text="is cool"):
+    """display “Python ”, followed by the value of the text variable
+
+    Args:
+        text (str): The default value of text. Defaults to "is cool".
+    """
     text1 = text.replace('_', ' ')
     return("Python {}".format(text1))
 
