@@ -126,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
                 v = v.replace('_', ' ')
                 setattr(obj, k, eval(v))
             obj.save()
-            print('{}'.format(obj))
+            print('{}'.format(obj.id))
         else:
             print("** class doesn't exist **")
         # s3 = linea[1:len(linea)]
