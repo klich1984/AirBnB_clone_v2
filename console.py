@@ -115,44 +115,52 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        s2 = args.split()
-        if len(s2) == 0:
+        linea = args.split(' ')
+        if len(linea) == 0:
             print("** class name missing **")
             return
-        elif s2[0] not in HBNBCommand.classes:
+        elif linea[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
+        else:
+            obj = HBNBCommand.classes[linea[0]]()
+            for key_value in linea[1:]:
+                k, v = key_value.split('=')
+                v = v.replace('_', ' ')
+                setattr(obj, k, eval(v))
+            print('{}'.format(obj))
+            obj.save()
+        # s3 = linea[1:len(linea)]
+        # if (len(linea) > 1):
+        #     new_instance = HBNBCommand.classes[linea[0]]()
+        #     storage.new(new_instance)
+        #     storage.save()
+        #     print(new_instance.id)
+        #     for i in s3:
+        #         s4 = i.split('=')
+        #         key = s4[0]
+        #         value = s4[1]
+        #         if value.isnumeric():
+        #             pass
+        #         elif value[0] != '"' and value[-1] != '"':
+        #             try:
+        #                 float(value)
+        #             except ValueError:
+        #                 continue
+        #         elif value[0] == '"' and value[-1] == '"':
+        #             value = value.replace('_', ' ')
+        #         else:
+        #             continue
+        #         update_args = linea[0] + " " + new_instance.id +\
+        #             " " + key + " " + value
+        #         self.do_update(update_args)
+        #     return
+        # new_instance = HBNBCommand.classes[linea[0]]()
+        # storage.new(new_instance)
+        # storage.save()
+        # print(new_instance.id)
+        # storage.save()
 
-        s3 = s2[1:len(s2)]
-        if (len(s2) > 1):
-            new_instance = HBNBCommand.classes[s2[0]]()
-            storage.new(new_instance)
-            storage.save()
-            print(new_instance.id)
-            for i in s3:
-                s4 = i.split('=')
-                key = s4[0]
-                value = s4[1]
-                if value.isnumeric():
-                    pass
-                elif value[0] != '"' and value[-1] != '"':
-                    try:
-                        float(value)
-                    except ValueError:
-                        continue
-                elif value[0] == '"' and value[-1] == '"':
-                    value = value.replace('_', ' ')
-                else:
-                    continue
-                update_args = s2[0] + " " + new_instance.id +\
-                    " " + key + " " + value
-                self.do_update(update_args)
-            return
-        new_instance = HBNBCommand.classes[s2[0]]()
-        storage.new(new_instance)
-        storage.save()
-        print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
