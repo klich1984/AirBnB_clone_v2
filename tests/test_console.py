@@ -1,38 +1,17 @@
 #!/usr/bin/python3
-"""[summary]
-"""
-
-import sys
-import models
-import unittest
-from io import StringIO
+"""model unitest for base model"""
 from console import HBNBCommand
-from unittest.mock import create_autospec
+import unittest
+import pep8
 
 
 class TestConsole(unittest.TestCase):
-    """[summary]
 
-    Args:
-        unittest ([type]): [description]
-    """
-    def setUp(self):
-        """[summary]
-        """
-        self.capt_out = StringIO()
-        sys.stdout = self.capt_out
+    def test_pep8_conformance(self):
+        """Test that we conform to PEP8."""
+        pep8style = pep8.Checker("console.py", source_code=True)
+        result = pep8style.check_all()
+        self.assertEqual(result, 0)
 
-    def create(self):
-        """[summary]
-
-        Returns:
-            [type]: [description]
-        """
-        return HBNBCommand()
-
-    def test_create(self):
-        """[summary]
-        """
-        console = self.create()
-        console.onecmd("create State")
-        self.assertTrue(isinstance(self.capt_out.getvalue(), str))
+if __name__ == '__main__':
+    unittest.main()
