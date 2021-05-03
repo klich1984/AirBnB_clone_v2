@@ -4,6 +4,13 @@ import os
 from sqlalchemy.orm import sessionmaker, scoped_session, Session
 from models.base_model import BaseModel, Base
 from sqlalchemy import create_engine
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+from models.user import User
+
 
 
 class DBStorage():
@@ -27,12 +34,19 @@ class DBStorage():
         Args:
             cls ([type], optional): [description]. Defaults to None.
         """
-        # if cls is None:
-        #     q = self.__session.query('')
-        #     print('**************')
-        #     for key, values in q:
-        #         print('{} {}'.format(key,values))
-        print('**************')
+        classes = [State, City, User]
+        list_all_obj = []
+        if cls is None:
+            for clas in classes:
+                list_all_obj += self.__session.query(clas).all()
+        else:
+            list_all_obj = self.__session.query(cls).all()
+
+        dic = {}
+        for element in list_all_obj:
+            name = element.__class__.__name__+ '.' + str(element.id)
+            dic[name] = element
+        return dic
 
     def new(self, obj):
         """[summary]
